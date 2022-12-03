@@ -387,3 +387,5 @@ extension AWSPolyVoiceIdExtension on AWSPolyVoiceId {
   /// Return a string for the given AWSPollyVoiceId.
   String get string => this.toString().split('.').last;
 }
+
+enum AWSPolyOutputFormat { mp3, json }

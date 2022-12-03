@@ -40,10 +40,12 @@ class AwsPollyImpl implements AwsPolly {
   Future<String> getUrl({
     required String input,
     AWSPolyVoiceId voiceId = AWSPolyVoiceId.ivy,
+    AWSPolyOutputFormat outputFormat = AWSPolyOutputFormat.mp3,
   }) async {
     Map<String, String> request = {
       'input': input,
       'voiceId': voiceId.string,
+      'outputFormat': outputFormat.name,
     };
     return await _channel.invokeMethod(_MethodCalls.getUrl, request);
   }

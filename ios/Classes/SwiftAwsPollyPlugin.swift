@@ -41,6 +41,14 @@ public class SwiftAwsPollyPlugin: NSObject, FlutterPlugin {
       let request = call.arguments as! [String: String]
       let text = request["input"]!
       let voiceId = request["voiceId"]!
+      let outputFormat: AWSPollyOutputFormat = {
+        if (request["outputFormat"] == "json") {
+          return AWSPollyOutputFormat.json
+        }
+        else {
+          return AWSPollyOutputFormat.mp3
+        }
+      }()
 
       // First, Amazon Polly requires an input, which we need to prepare.
       // Again, we ignore the errors, however this should be handled in
@@ -52,8 +60,11 @@ public class SwiftAwsPollyPlugin: NSObject, FlutterPlugin {
       // Text to synthesize
       input.text = text
 
-      // We expect the output in MP3 format
-      input.outputFormat = AWSPollyOutputFormat.mp3
+      // We expect the output format
+      input.outputFormat = outputFormat
+      if(outputFormat == AWSPollyOutputFormat.json) {
+        input.speechMarkTypes = ["word"]
+      }
 
       // Choose the voice ID
       input.voiceId = AWSPollyVoiceId.voiceIdForString(voiceIdString: voiceId)

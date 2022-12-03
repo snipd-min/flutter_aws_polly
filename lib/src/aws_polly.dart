@@ -31,6 +31,7 @@ abstract class AwsPolly {
   Future<String> getUrl({
     required String input,
     AWSPolyVoiceId voiceId,
+    AWSPolyOutputFormat outputFormat,
   });
 
   static AwsPolly? _instance;
